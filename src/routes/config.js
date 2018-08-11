@@ -60,6 +60,13 @@ export default {
             ],
         },
         {
+            key: '/app/setting', title: '系统设置', icon: 'setting',
+            subs: [
+                { key: '/app/setting/user', title: '用户管理', component: 'AuthBasic' },
+                { key: '/app/setting/role', title: '权限管理', component: 'RouterEnter', auth: 'auth/testPage' },
+            ],
+        },
+        {
             key: '/app/cssModule', title: 'cssModule', icon: 'star', component: 'Cssmodule'
         },
     ],

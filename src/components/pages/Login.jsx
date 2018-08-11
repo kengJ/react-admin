@@ -27,7 +27,7 @@ class Login extends React.Component {
         // const { history } = this.props;
         if (nextAuth.data && nextAuth.data.uid) {   // 判断是否登陆
             localStorage.setItem('user', JSON.stringify(nextAuth.data));
-            history.push('/');
+            history.push('/app/dashboard/index');
         }
     }
     handleSubmit = (e) => {
@@ -38,6 +38,7 @@ class Login extends React.Component {
                 const { fetchData } = this.props;
                 if (values.userName === 'admin' && values.password === 'admin') fetchData({funcName: 'admin', stateName: 'auth'});
                 if (values.userName === 'guest' && values.password === 'guest') fetchData({funcName: 'guest', stateName: 'auth'});
+                //localStorage.setItem('ms_username',values.userName);
             }
         });
     };
