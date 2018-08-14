@@ -27,7 +27,7 @@ class App extends Component {
         }
     }
     componentDidMount() {
-        const openNotification = () => {
+        /**const openNotification = () => {
             notification.open({
               message: '博主-yezihaohao',
               description: (
@@ -46,7 +46,7 @@ class App extends Component {
             localStorage.setItem('isFirst', JSON.stringify(true));
         };
         const isFirst = JSON.parse(localStorage.getItem('isFirst'));
-        !isFirst && openNotification();
+        !isFirst && openNotification();**/
     }
     getClientWidth = () => {    // 获取当前浏览器宽度并设置responsive管理响应式
         const { receiveData } = this.props;
@@ -65,14 +65,14 @@ class App extends Component {
         const { auth, responsive } = this.props;
         return (
             <Layout>
-                {!responsive.data.isMobile && <SiderCustom collapsed={this.state.collapsed} />}
+                {!responsive.data.isMobile && <SiderCustom collapsed={this.state.collapsed} auth={auth} />}
                 <Layout style={{flexDirection: 'column'}}>
                     <HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} user={auth.data || {}} />
                     <Content style={{ margin: '0 16px', overflow: 'initial' }}>
                         <Routes auth={auth} />
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
-                    React-Admin ©{new Date().getFullYear()} Created by 865470087@qq.com
+                    {/*React-Admin ©{new Date().getFullYear()} Created by 865470087@qq.com*/}
                     </Footer>
                 </Layout>
                 

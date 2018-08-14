@@ -6,6 +6,8 @@ import { Layout } from 'antd';
 import { withRouter } from 'react-router-dom';
 import routes from '../routes/config';
 import SiderMenu from './SiderMenu';
+import adminRoutesConfig from '../routes/AdminConfig';
+import userRoutesConfig from '../routes/UserConfig';
 
 const { Sider } = Layout;
 
@@ -71,6 +73,7 @@ class SiderCustom extends Component {
         })
     };
     render() {
+        let roleMenus = this.props.auth.data.role==="系统管理员"?adminRoutesConfig:userRoutesConfig
         return (
             <Sider
                 trigger={null}
@@ -80,7 +83,7 @@ class SiderCustom extends Component {
             >
                 <div className="logo" />
                 <SiderMenu
-                    menus={routes.menus}
+                    menus={roleMenus.menus}
                     onClick={this.menuClick}
                     theme="dark"
                     mode="inline"

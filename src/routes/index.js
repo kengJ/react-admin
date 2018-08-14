@@ -5,6 +5,9 @@ import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import AllComponents from '../components';
 import routesConfig from './config';
+import adminRoutesConfig from './AdminConfig';
+import userRoutesConfig from './UserConfig';
+
 
 export default class CRouter extends Component {
     requireAuth = (permission, component) => {
@@ -23,11 +26,14 @@ export default class CRouter extends Component {
         return permission ? this.requireAuth(permission, component) : component;
     };
     render() {
+        const { auth } = this.props;
+        console.log('auth',auth.data)
+        let routes = auth.data.role==="系统管理员"?adminRoutesConfig:userRoutesConfig
         return (
             <Switch>
                 {
-                    Object.keys(routesConfig).map(key => 
-                        routesConfig[key].map(r => {
+                    Object.keys(routes).map(key => 
+                        routes[key].map(r => {
                             const route = r => {
                                 const Component = AllComponents[r.component];
                                 return (

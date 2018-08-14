@@ -27,6 +27,7 @@ import Wysiwyg from 'bundle-loader?lazy!./ui/Wysiwyg';  // 按需加载富文本
 import Bundle from './widget/Bundle';
 import Cssmodule from './cssmodule';
 import MapUi from './ui/map';
+import User from './setting/User';
 
 const WysiwygBundle = (props) => (
     <Bundle load={Wysiwyg}>
@@ -39,5 +40,5 @@ export default {
     Echarts, Recharts, Icons, Buttons, Spins, Modals, Notifications,
     Tabs, Banners, Drags, Dashboard, Gallery, BasicAnimations,
     ExampleAnimations, AuthBasic, RouterEnter, WysiwygBundle,
-    Cssmodule, MapUi
+    Cssmodule, MapUi,User
 }
