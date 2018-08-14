@@ -1,5 +1,3 @@
 { 
-    "@primary-color": "#1DA57A",
-    "@font-size-base": "12px" ,
-    "//": [ "#1DA57A", "#001529" ]
+    "@font-size-base": "12px" 
 }

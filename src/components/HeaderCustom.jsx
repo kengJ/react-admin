@@ -2,7 +2,7 @@
  * Created by hao.cheng on 2017/4/13.
  */
 import React, { Component } from 'react';
-import { Menu, Icon, Layout, Badge, Popover } from 'antd';
+import { Menu, Icon, Layout, Badge, Popover ,Avatar } from 'antd';
 import screenfull from 'screenfull';
 import { gitOauthToken, gitOauthInfo } from '../axios';
 import { queryString } from '../utils';
@@ -77,6 +77,7 @@ class HeaderCustom extends Component {
     };
     render() {
         const { responsive, path } = this.props;
+        console.log('user',this.props.user);
         return (
             <Header style={{ background: '#fff', padding: 0, height: 65 }} className="custom-theme" >
                 {
@@ -105,9 +106,9 @@ class HeaderCustom extends Component {
                             <Icon type="notification" />
                         </Badge>
                     </Menu.Item>*/}
-                    <SubMenu title={<span className="avatar"><img src={avater} alt="头像" /><i className="on bottom b-white" /></span>}>
+                    <SubMenu title={<span><Avatar>{this.props.user.userName==='系统管理员'?'Admin':'User'}</Avatar> {this.props.user.userName}</span>}>
                         <MenuItemGroup title="用户中心">
-                            <Menu.Item key="setting:1">你好 - {this.props.user.userName}</Menu.Item>
+                            {/*<Menu.Item key="setting:1" disabled={true}>{this.props.user.userName}</Menu.Item>*/}
                             {/*<Menu.Item key="setting:2">个人信息</Menu.Item>*/}
                             <Menu.Item key="logout"><span onClick={this.logout}>退出登录</span></Menu.Item>
                         </MenuItemGroup>
