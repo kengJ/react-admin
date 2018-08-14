@@ -77,7 +77,7 @@ class HeaderCustom extends Component {
     };
     render() {
         const { responsive, path } = this.props;
-        console.log('user',this.props.user);
+        //console.log('user',this.props.user);
         return (
             <Header style={{ background: '#fff', padding: 0, height: 65 }} className="custom-theme" >
                 {
