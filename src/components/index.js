@@ -27,7 +27,7 @@ import Wysiwyg from 'bundle-loader?lazy!./ui/Wysiwyg';  // 按需加载富文本
 import Bundle from './widget/Bundle';
 import Cssmodule from './cssmodule';
 import MapUi from './ui/map';
-import User from './setting/User';
+import User from './pages/User';
 
 const WysiwygBundle = (props) => (
     <Bundle load={Wysiwyg}>

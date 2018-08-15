@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, notification, Icon } from 'antd';
+import { Layout } from 'antd';
 import './style/index.less';
 import SiderCustom from './components/SiderCustom';
 import HeaderCustom from './components/HeaderCustom';

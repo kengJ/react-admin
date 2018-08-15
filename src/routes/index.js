@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import AllComponents from '../components';
-import routesConfig from './config';
+//import routesConfig from './config';
 import adminRoutesConfig from './AdminConfig';
 import userRoutesConfig from './UserConfig';
 
