@@ -37,3 +37,5 @@ export const admin = () => get({url: config.MOCK_AUTH_ADMIN});
 
 // 访问权限获取
 export const guest = () => get({url: config.MOCK_AUTH_VISITOR});
+
+export const apiPost = (actionName,json) => axios.post('http://127.0.0.1:8080/Flowt'+actionName,json)

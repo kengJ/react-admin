@@ -6,9 +6,14 @@ import React from 'react';
 import { Input,Button,Row,Col } from 'antd';
 
 class SearchInput extends React.Component{//基础输入框组件
+    state={
+        inputKey:''
+    }
     onPressEnter(e){//回车键触发函数
-        if(this.props().onPressEnter!=undefined){
-            this.props().onPressEnter(e)
+        //console.log(this.refs.inputKey.input.value)
+        if(this.props.onPressEnter!=undefined){
+            let key = this.refs.inputKey.input.value
+            this.props.onPressEnter(key)
         }
     }
     checkWidth(){//输入框长度处理
@@ -32,7 +37,8 @@ class SearchInput extends React.Component{//基础输入框组件
                         defaultValue={defaultValue!=undefined?defaultValue:''}
                         type={type!=undefined?type:'text'}
                         style={style}
-                        onPressEnter={this.onPressEnter.bind(this)}/>
+                        onPressEnter={this.onPressEnter.bind(this)}
+                        ref="inputKey"/>
                 </div>
                 {btnText!=undefined?
                     <Button 
