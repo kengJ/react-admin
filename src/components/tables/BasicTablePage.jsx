@@ -5,6 +5,7 @@
  */
 import React from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Button  } from 'antd';
+import {apiPostPromise} from '../../axios'
 //data start
 /**const data = [];
 
@@ -90,6 +91,7 @@ class EditableTable extends React.Component {
         editingKey: '' ,
         btnSize:"small"
     };
+    this.findData(null)
   }
 
   isEditing = (record) => {//判断是否编辑
@@ -111,7 +113,14 @@ class EditableTable extends React.Component {
       const index = newData.findIndex(item => key === item.key);
       if (index > -1) {
         const item = newData[index];
-        if(this.props.save(index,row)) this.setState({ data: newData, editingKey: '' });
+        let message  = this.props.save(item.key,row);
+        apiPostPromise(message.url,message.json).then(value=>{
+          const check = message.fn(value)
+          if(check){
+            this.setState({ data: newData, editingKey: '' });
+            this.findData(null)
+          }
+        })
       } else {
         //newData.push(row);
         this.setState({ data: newData, editingKey: '' });
@@ -122,6 +131,13 @@ class EditableTable extends React.Component {
   cancel = () => {//取消事件
     this.setState({ editingKey: '' });
   };
+
+  findData(key){
+    let message = this.props.findData(key)
+    apiPostPromise(message.url,message.json).then(value=>{
+      message.fn(value)
+    })
+  }
 
   render() {
     const components = {

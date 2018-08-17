@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card } from 'antd';
-import {Divider,Icon} from 'antd';
 import BasicTablePage from '../tables/BasicTablePage'
 import SearchInput from '../input/SearchInput'
-import {apiPost} from '../../axios'
+import UserBtn from '../button/UserBtn'
+import {apiPost,apiPostPromise} from '../../axios'
 
 const columns = [{
     title: 'Id',
@@ -29,42 +29,44 @@ class User extends React.Component{
     }
     constructor(props){
         super(props);
-        this.findData(null);
+        //this.findData(null);
     }
-    save(index,data){
-      const newData = [...this.state.data]
-      newData.splice(index, 1, {
-        ...data,
-      });
-      this.setState({data:newData})
-      return true;
+    save(index,data,reslove,reject){
+      return {
+        url:'/User/UpdateUser',
+        json:{Id:index,UserName:data.userName,Password:data.password},
+        fn: value=>{
+          return value=="success"
+        }
+      }
     }
     findData(key){
-      //let url = '/User/ReactFindByKey';
-      let action = null;
-      if(key==null){
-        action = apiPost('/User/ReactFindAll',{})
-      }else{
-        action = apiPost('/User/ReactFindByKey',{Key:key})
-      }
-      action.then(
-        res=>{
-          //console.log(res.data)
-          let findData = res.data
-          findData.map(item=>{
+      return key==null?{
+        url:'/User/ReactFindAll',
+        json:{},
+        fn:value =>{
+          value.map(item=>{
             item.key = item.id
           });
-          //console.log(findData)
-          this.setState({data:findData})
+          this.setState({data:value})
+          return true;
         }
-      ).catch(err=>{console.log(err)})
+      }:{
+        url:'/User/ReactFindByKey',
+        json:{Key:key},
+        fn:value=>{
+          value.map(item=>{
+            item.key = item.id
+          });
+          this.setState({data:value})
+          return true;
+        }
+      }
     }
     onPressEnter(key){
-      //console.log('key',key)
-      this.findData(key)
+      return this.findData(key)
     }
     render(){
-        //console.log(this.state.data)
         return(
             <div>
                 <Card title="用户管理" style={{marginTop:'20px'}}>
@@ -73,10 +75,13 @@ class User extends React.Component{
                     title="请输入关键字"
                     onPressEnter={this.onPressEnter.bind(this)}/>
                   <br/>
+                  <UserBtn></UserBtn>
+                  <br/>
                   <BasicTablePage 
                     columns={columns} 
                     data={this.state.data} 
-                    save={this.save.bind(this)}/>
+                    save={this.save.bind(this)}
+                    findData={this.findData.bind(this)}/>
                 </Card>
             </div>
         )

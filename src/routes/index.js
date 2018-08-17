@@ -27,7 +27,7 @@ export default class CRouter extends Component {
     };
     render() {
         const { auth } = this.props;
-        console.log('auth',auth.data)
+        //console.log('auth',auth.data)
         let routes = auth.data.role==="系统管理员"?adminRoutesConfig:userRoutesConfig
         return (
             <Switch>

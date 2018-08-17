@@ -32,7 +32,7 @@ class SiderCustom extends Component {
         };
     };
     static onCollapse = (collapsed) => {
-        console.log(collapsed);
+        //console.log(collapsed);
         return {
             collapsed,
             // firstHide: collapsed,
@@ -60,12 +60,12 @@ class SiderCustom extends Component {
         this.setState({
             selectedKey: e.key
         });
-        console.log(this.state);
+        //  console.log(this.state);
         const { popoverHide } = this.props;     // 响应式布局控制小屏幕点击菜单时隐藏菜单操作
         popoverHide && popoverHide();
     };
     openMenu = v => {
-        console.log(v);
+        //console.log(v);
         this.setState({
             openKey: v[v.length - 1],
             firstHide: false,

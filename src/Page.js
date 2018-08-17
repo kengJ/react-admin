@@ -7,7 +7,7 @@ import App from './App';
 class Page extends React.Component{
     loginCheck(){
         let user = localStorage.getItem('user');
-        console.log(user)
+        //console.log(user)
         return user;
     }
     render(){
