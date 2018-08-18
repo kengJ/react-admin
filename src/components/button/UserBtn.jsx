@@ -3,11 +3,12 @@
  * create on 2018-08-16
  */
 import React from 'react';
-import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker } from 'antd';
+import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker ,Radio} from 'antd';
 import {apiPostPromise} from '../../axios'
 
 const { Option } = Select;
 const FormItem = Form.Item;
+const RadioGroup = Radio.Group;
 
 class UserBtnComponent extends React.Component{
     state = { 
@@ -16,12 +17,20 @@ class UserBtnComponent extends React.Component{
     };
     constructor(props){
         super(props);
-        this.getRole()
+        let roles = []
+        new Promise((reslove, reject)=>{
+          apiPostPromise('/Role/ReactFindAll').then(value=>{
+            value.map(item=>{
+                roles.push({label:item.memo,value:item.id})
+            })
+            reslove(roles)
+          })
+        }).then(value=>{
+          this.setState({roles:value})
+        })
     }
-    //state = { visible: false ,roles};
 
     showDrawer = () => {
-       this.getRole()
       this.setState({
         visible: true,
       });
@@ -33,38 +42,23 @@ class UserBtnComponent extends React.Component{
       });
     };
   
-    getRole(){
-        let roles = []
-        apiPostPromise('/Role/ReactFindAll').then(value=>{
-            //console.log('value',value)
-            value.map(item=>{
-                roles.push({name:item.roleName,id:item.id})
-            })
-            console.log(roles)
-            this.setState({roles:roles})
-        })
-    }
-
     render() {
       const { getFieldDecorator } = this.props.form;
       const formItemLayout = {
         labelCol: { span: 4 },
         wrapperCol: { span: 20 },
       };
-      let {roles} = this.state;
-      //console.log('render',this.state.roles)
-      const  option = roles.map(item=>{
-            <Option key={item.id}>{item.name}</Option>
-        })
-        //console.log(option)
       return (
         <div>
           <Button type="primary" onClick={this.showDrawer}>
             新增
           </Button>
+          <Button type="primary" style={{backgroundColor:'green',borderColor:'green'}}>
+            变更权限
+          </Button>
           <Drawer
             title="新增数据"
-            width={300}
+            width={350}
             placement="right"
             onClose={this.onClose}
             maskClosable={false}
@@ -89,16 +83,14 @@ class UserBtnComponent extends React.Component{
                 <FormItem
                     {...formItemLayout}
                     label="权限"
-                    hasFeedback
                     >
                     {getFieldDecorator('role', {
                         rules: [
                         { required: true, message: '请选择权限' },
                         ],
                     })(
-                        <Select placeholder="请选择权限">
-                            {option}
-                        </Select>
+                      <RadioGroup 
+                        options={this.state.roles} />
                     )}
                 </FormItem>
             </Form>

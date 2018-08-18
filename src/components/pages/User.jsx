@@ -20,6 +20,11 @@ const columns = [{
     dataIndex: 'password',
     key: 'password',
     editable: true,
+  },{
+    title: '权限',
+    dataIndex: 'role.memo',
+    key: 'role',
+    editable: false,
   }];
 
 

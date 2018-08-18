@@ -28,6 +28,13 @@ class SearchInput extends React.Component{//基础输入框组件
             return width;
         }
     }
+    clear(){
+        let message = this.props.onPressEnter(null)
+        apiPostPromise(message.url,message.json).then(value=>{
+            message.fn(value)
+        })
+        this.refs.inputKey.input.value=""
+    }
     render(){
         let {title,size,defaultValue,type,style,btnText} = this.props;
         let width = this.checkWidth();//获取输入框长度
@@ -50,6 +57,12 @@ class SearchInput extends React.Component{//基础输入框组件
                         onClick={this.onPressEnter.bind(this)}>
                         {btnText}
                     </Button>:<div></div>} 
+                    <Button 
+                        type="primary" 
+                        style={{marginLeft:'20px'}} 
+                        onClick={this.clear.bind(this)}>
+                        重置
+                    </Button>
             </Input.Group>     
         )
     }
